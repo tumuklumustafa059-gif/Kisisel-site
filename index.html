@@ -37,7 +37,7 @@
   "@type": "Person",
   "name": "Mustafa Tümüklü",
   "url": "{{SITE_URL}}/",
-  "image": "{{SITE_URL}}/og-gorsel.png",
+  "image": "{{SITE_URL}}/foto-600.webp",
   "email": "mailto:tumuklumustafa059@gmail.com",
   "jobTitle": "Elektronik ve Haberleşme Mühendisliği Öğrencisi",
   "affiliation": { "@type": "CollegeOrUniversity", "name": "İstanbul Teknik Üniversitesi", "url": "https://www.itu.edu.tr" },
@@ -52,7 +52,8 @@
 </script>
 
 <style>
-/* Düzen: tek sütun, sola hizalı, en fazla 46rem genişlik; üstte yapışkan menü, girişte frekans şeridi.
+/* Düzen: telefonda tek sütun; 60rem (960px) üstü ekranlarda en fazla 74rem genişlik,
+   girişte metin + portre, bölümlerde çok sütunlu ızgaralar. Girişte frekans şeridi.
    Renkler baskı devre kartından: lehim maskesi yeşili ve bakır. */
 :root {
   --zemin: #F5F7F5;
@@ -67,18 +68,21 @@
   --bakir-zemin: #F1E2D5;
   --yazi-baslik: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --yazi-govde: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --olcu: 46rem;
+  --olcu: 74rem;
+  --siluet-opak: .12;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --zemin: #0F1714; --yuzey: #17221D; --murekkep: #E3EBE6; --soluk: #98A79F; --cizgi: #2A3832;
     --vurgu: #5EC79B; --vurgu-zemin: #173528; --vurgu-yazi: #08150F; --bakir: #E09C63; --bakir-zemin: #33241A;
+    --siluet-opak: .1;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --zemin: #0F1714; --yuzey: #17221D; --murekkep: #E3EBE6; --soluk: #98A79F; --cizgi: #2A3832;
   --vurgu: #5EC79B; --vurgu-zemin: #173528; --vurgu-yazi: #08150F; --bakir: #E09C63; --bakir-zemin: #33241A;
+  --siluet-opak: .1;
   color-scheme: dark;
 }
 
@@ -116,6 +120,9 @@ body::before {
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
+@media (min-width: 60rem) {
+  .sar { max-width: calc(var(--olcu) + 2 * 32px); padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); }
+}
 a { color: var(--vurgu); text-decoration-thickness: 1px; text-underline-offset: .18em; }
 a:hover { text-decoration-thickness: 2px; }
 :focus-visible { outline: 2px solid var(--vurgu); outline-offset: 3px; border-radius: 2px; }
@@ -125,7 +132,7 @@ h3 { font-size: 1.125rem; font-weight: 650; }
 h4 { font-size: 1.0625rem; font-weight: 600; }
 p { margin: 0; }
 ul, ol { margin: 0; padding: 0; }
-.metin p, .metin li { max-width: 65ch; }
+.metin p, .metin li { max-width: 68ch; }
 .metin { display: grid; gap: .9rem; }
 
 /* Üst menü */
@@ -144,15 +151,58 @@ ul, ol { margin: 0; padding: 0; }
   .menu-ad { display: none; }
   .menu ul { margin-left: 0; gap: 1.1rem; }
 }
+@media (min-width: 60rem) { .menu ul { gap: 1.75rem; } }
 
-/* Giriş */
-.giris { padding-block: 3.5rem 3rem; display: grid; gap: 1.25rem; }
+/* Giriş: telefonda fotoğraf ismin solunda küçük; geniş ekranda sağda büyük portre */
+.giris {
+  position: relative; isolation: isolate;
+  padding-block: 2.5rem 2.5rem;
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  grid-template-areas: "foto ad" "govde govde" "spk spk";
+  gap: 1.5rem 1rem;
+  align-items: center;
+}
 .giris h1 {
-  font-size: clamp(2.6rem, 1.6rem + 5vw, 4.5rem);
+  grid-area: ad;
+  font-size: clamp(2.6rem, 1.6rem + 5vw, 4.75rem);
   font-weight: 700; font-stretch: 115%; letter-spacing: -.015em; line-height: 1;
 }
-.unvan { font-size: 1.1875rem; color: var(--murekkep); max-width: 40ch; }
-.ozet { color: var(--soluk); max-width: 58ch; }
+.foto {
+  grid-area: foto; display: block;
+  width: 5.5rem; height: 5.5rem; max-width: 100%;
+  border-radius: 50%; object-fit: cover; object-position: 50% 22%;
+  background: var(--yuzey);
+}
+.giris-govde { grid-area: govde; display: grid; gap: 1.25rem; min-width: 0; }
+/* Arka plandaki soluk Atatürk portresi: yazıların arkasında, kenarları görselin içinde yumuşatıldı */
+.siluet {
+  position: absolute; z-index: -1; pointer-events: none;
+  top: .75rem; right: 0; width: 15rem; max-width: 70%; aspect-ratio: 432 / 611;
+  background: url("ataturk-siluet.webp") center top / contain no-repeat;
+  opacity: calc(var(--siluet-opak) * .8);
+}
+@media (min-width: 40rem) { .siluet { width: 19rem; } }
+@media (min-width: 60rem) { .siluet { width: 22rem; top: 1.5rem; right: 18.5rem; opacity: var(--siluet-opak); } }
+.spektrum { grid-area: spk; min-width: 0; }
+@media (min-width: 40rem) {
+  .giris { grid-template-columns: 7.5rem minmax(0, 1fr); column-gap: 1.5rem; }
+  .foto { width: 7.5rem; height: 7.5rem; }
+}
+@media (min-width: 60rem) {
+  .giris {
+    padding-block: 4.5rem 3rem;
+    grid-template-columns: minmax(0, 1fr) 17rem;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: "ad foto" "govde foto" "spk spk";
+    column-gap: 4.5rem; row-gap: 1.5rem;
+    align-items: start;
+  }
+  .giris h1 { align-self: end; }
+  .foto { width: 100%; height: auto; aspect-ratio: 4 / 5; border-radius: 8px; }
+}
+.unvan { font-size: 1.1875rem; color: var(--murekkep); max-width: 44ch; }
+.ozet { color: var(--soluk); max-width: 60ch; }
 .eylemler { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: .25rem; }
 .dugme {
   display: inline-flex; align-items: center; gap: .5rem;
@@ -174,7 +224,7 @@ ul, ol { margin: 0; padding: 0; }
 .kopyala:hover { color: var(--murekkep); border-color: var(--soluk); }
 
 /* Frekans şeridi: logaritmik eksen, 1 MHz – 10 GHz */
-.spektrum { margin: 1.75rem 0 0; padding-top: 1.25rem; border-top: 1px dashed var(--cizgi); }
+.spektrum { margin: .5rem 0 0; padding-top: 1.25rem; border-top: 1px dashed var(--cizgi); }
 .spektrum figcaption { font-size: .875rem; color: var(--soluk); margin-bottom: .9rem; }
 .spk { position: relative; height: 7rem; }
 .bant {
@@ -195,38 +245,50 @@ ul, ol { margin: 0; padding: 0; }
 
 /* Bölümler */
 .bolum { padding-block: 3.25rem; border-top: 1px solid var(--cizgi); scroll-margin-top: 3.5rem; display: grid; gap: 1.5rem; }
-.bolum > h2 + p { color: var(--soluk); max-width: 60ch; margin-top: -.75rem; }
-.alt-baslik { margin-top: .75rem; }
+.bolum > h2 + p { color: var(--soluk); max-width: 64ch; margin-top: -.75rem; }
+@media (min-width: 60rem) { .bolum { padding-block: 4.5rem; gap: 2rem; } }
+.alt-baslik { margin-top: .5rem; }
 
 /* Hakkımda */
 .hakkimda { display: grid; gap: 2rem; }
-@media (min-width: 52rem) { .hakkimda { grid-template-columns: minmax(0, 1fr) 17rem; gap: 3rem; } }
-.bilgi { margin: 0; display: grid; gap: .8rem; align-content: start; }
+@media (min-width: 52rem) { .hakkimda { grid-template-columns: minmax(0, 1fr) 20rem; gap: 3rem; } }
+@media (min-width: 60rem) { .hakkimda { grid-template-columns: minmax(0, 1fr) 23rem; gap: 4.5rem; } }
+.bilgi { margin: 0; display: grid; gap: .9rem; align-content: start; background: var(--yuzey); border-radius: 8px; padding: 1.25rem 1.4rem; }
 .bilgi div { display: grid; gap: .1rem; }
 .bilgi dt { font-size: .8125rem; color: var(--soluk); }
 .bilgi dd { margin: 0; font-size: .9688rem; }
 
-/* Zaman çizelgesi (deneyim, eğitim) */
+/* Kariyer: geniş ekranda deneyim solda, eğitim ve beceriler sağda */
+.kariyer-izgara { display: grid; gap: 2.5rem; }
+@media (min-width: 60rem) { .kariyer-izgara { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 4.5rem; } }
+.kariyer-sutun { display: grid; gap: 1.25rem; align-content: start; min-width: 0; }
 .zaman { list-style: none; display: grid; gap: 1.75rem; }
-.zaman > li { display: grid; gap: .35rem; }
-@media (min-width: 40rem) { .zaman > li { grid-template-columns: 10rem minmax(0, 1fr); gap: 1.5rem; } }
-.tarih { font-size: .9375rem; color: var(--soluk); font-variant-numeric: tabular-nums; padding-top: .1rem; }
+.zaman > li { display: grid; gap: .3rem; }
+.tarih { font-size: .9375rem; color: var(--soluk); font-variant-numeric: tabular-nums; }
 .zaman-icerik { display: grid; gap: .45rem; min-width: 0; }
 .yer { font-size: .9375rem; color: var(--soluk); }
 .maddeler { padding-left: 1.1rem; display: grid; gap: .3rem; }
 .maddeler li::marker { color: var(--soluk); }
-
-.beceriler { margin: 0; display: grid; gap: .6rem; }
+.beceriler { margin: 0; display: grid; gap: .75rem; }
 .beceriler div { display: grid; gap: .1rem; }
-@media (min-width: 40rem) { .beceriler div { grid-template-columns: 10rem minmax(0, 1fr); gap: 1.5rem; } }
-.beceriler dt { color: var(--soluk); font-size: .9375rem; }
+.beceriler dt { color: var(--soluk); font-size: .875rem; }
 .beceriler dd { margin: 0; }
 
-/* Projeler */
-.projeler { display: grid; gap: 0; }
-.proje { display: grid; gap: .7rem; padding-block: 1.75rem; border-top: 1px solid var(--cizgi); }
+/* Projeler: bitirme projesi tam genişlik, diğerleri geniş ekranda üç sütun */
+.projeler { display: grid; }
+.proje { display: grid; gap: .7rem; padding-block: 1.75rem; border-top: 1px solid var(--cizgi); align-content: start; min-width: 0; }
 .proje:first-child { border-top: 0; padding-top: 0; }
 .proje h3 { font-size: 1.3125rem; font-stretch: 105%; }
+.proje-ana { gap: 1.5rem; }
+.proje-ana-sol, .proje-ana-sag { display: grid; gap: .8rem; align-content: start; min-width: 0; }
+.kucuk-baslik { font-size: .875rem; color: var(--soluk); }
+@media (min-width: 60rem) {
+  .projeler { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 3rem; }
+  .proje { padding-block: 2rem 0; }
+  .proje-ana { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) 20rem; column-gap: 4.5rem; padding-bottom: 2rem; }
+  .proje-ana .adimlar { flex-direction: column; }
+  .proje-ana h3 { font-size: 1.5rem; }
+}
 .proje-ust { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .75rem; font-size: .9375rem; color: var(--soluk); }
 .durum {
   font: 600 .75rem/1 var(--yazi-govde); padding: .3rem .55rem; border-radius: 999px;
@@ -240,17 +302,24 @@ ul, ol { margin: 0; padding: 0; }
 .adimlar li::before { content: counter(adim) ". "; font-variant-numeric: tabular-nums; }
 .adimlar li.su-an { background: var(--vurgu); color: var(--vurgu-yazi); font-weight: 600; }
 
-/* Dersler */
-.ders-listesi { list-style: none; display: grid; gap: .1rem; }
-.ders-listesi li { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: .1rem 1rem; padding-block: .55rem; border-bottom: 1px solid var(--cizgi); }
-.ders-listesi li:last-child { border-bottom: 0; }
-.kod { font-size: .875rem; color: var(--soluk); font-variant-numeric: tabular-nums; white-space: nowrap; padding-top: .1rem; }
-.ders-not { grid-column: 2; font-size: .875rem; color: var(--soluk); }
-.ders-gruplari { display: grid; gap: 2rem 3rem; }
-@media (min-width: 46rem) { .ders-gruplari { grid-template-columns: 1fr 1fr; } }
-.ders-gruplari section { display: grid; gap: .5rem; align-content: start; }
-.ders-gruplari .ders-listesi li { grid-template-columns: 5.75rem minmax(0, 1fr); font-size: .9688rem; padding-block: .4rem; }
-.dipnot { font-size: .875rem; color: var(--soluk); max-width: 65ch; }
+/* Dersler: bu dönem üstte, tamamlanan yarıyıllar ızgarada */
+.rf-ornek { display: inline-block; width: 3px; height: 1.05em; background: var(--bakir); vertical-align: -.18em; margin-right: .35rem; }
+.ders-listesi { list-style: none; display: grid; column-gap: 2.5rem; }
+.ders-listesi li {
+  display: grid; grid-template-columns: 5.6rem minmax(0, 1fr); gap: .1rem .9rem;
+  padding: .45rem 0 .45rem .7rem; border-bottom: 1px solid var(--cizgi); font-size: .9688rem;
+}
+.ders-listesi li.rf { box-shadow: inset 3px 0 0 var(--bakir); }
+.kod { font-size: .8438rem; color: var(--soluk); font-variant-numeric: tabular-nums; white-space: nowrap; padding-top: .12rem; }
+.ders-not { grid-column: 2; font-size: .8438rem; color: var(--soluk); }
+.su-an-dersler li { align-content: start; }
+@media (min-width: 40rem) { .su-an-dersler { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 60rem) { .su-an-dersler { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.donemler { display: grid; gap: 2rem 2.5rem; }
+@media (min-width: 40rem) { .donemler { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 60rem) { .donemler { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.donem { display: grid; gap: .4rem; align-content: start; min-width: 0; }
+.donem h4 { font-size: 1rem; }
 
 /* Dosyalar */
 .dosya-ara { display: grid; gap: .35rem; max-width: 24rem; }
@@ -260,9 +329,9 @@ ul, ol { margin: 0; padding: 0; }
   border: 1px solid var(--cizgi); background: var(--zemin); color: var(--murekkep);
 }
 .dosya-grubu { display: grid; gap: .5rem; }
-.dosya-listesi { list-style: none; display: grid; }
+.dosya-listesi { list-style: none; display: grid; column-gap: 3rem; }
+@media (min-width: 60rem) { .dosya-listesi { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .dosya { display: grid; grid-template-columns: 3rem minmax(0, 1fr) auto; align-items: center; gap: 1rem; padding-block: .75rem; border-bottom: 1px solid var(--cizgi); }
-.dosya:last-child { border-bottom: 0; }
 .tur {
   width: 3rem; height: 3rem; display: grid; place-items: center; border-radius: 6px;
   background: var(--yuzey); color: var(--soluk); font: 600 .6875rem/1 var(--yazi-baslik); letter-spacing: .02em; overflow: hidden;
@@ -279,7 +348,7 @@ ul, ol { margin: 0; padding: 0; }
 .alt { border-top: 1px solid var(--cizgi); padding-block: 2rem 2.5rem; font-size: .875rem; color: var(--soluk); }
 
 @media print {
-  .ust, .eylemler, .kopyala, .dosya-ara, .indir { display: none !important; }
+  .ust, .eylemler, .kopyala, .dosya-ara, .indir, .siluet { display: none !important; }
   body { background: #fff; color: #000; }
   .bolum { break-inside: avoid-page; }
 }
@@ -304,22 +373,26 @@ ul, ol { margin: 0; padding: 0; }
 
   <!-- ===== GİRİŞ ===== -->
   <section class="giris" aria-labelledby="ad">
+    <div class="siluet" aria-hidden="true"></div>
     <h1 id="ad">Mustafa Tümüklü</h1>
-    <p class="unvan">Elektronik ve Haberleşme Mühendisliği son sınıf öğrencisi, İstanbul Teknik Üniversitesi</p>
-    <p class="ozet">RF ve anten tasarımı, FPGA ile sayısal tasarım ve kablosuz haberleşme üzerine çalışıyorum. 2027 bahar dönemi için uzun dönem staj arıyorum.</p>
-    <div class="eylemler">
-      <a class="dugme" href="dosyalar/cv/Mustafa_Tumuklu_CV.pdf" download>
-        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5v9m0 0L4.5 7M8 10.5 11.5 7M2.5 13.5h11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        CV'mi indir
-      </a>
-      <a class="dugme ikincil" href="dosyalar/cv/Mustafa_Tumuklu_CV_EN.pdf" download hreflang="en">English CV</a>
+    <img class="foto" src="foto-600.webp" srcset="foto-300.webp 300w, foto-600.webp 600w" sizes="(min-width: 60rem) 17rem, 7.5rem" width="600" height="750" alt="Mustafa Tümüklü'nün fotoğrafı" fetchpriority="high" decoding="async">
+    <div class="giris-govde">
+      <p class="unvan">Elektronik ve Haberleşme Mühendisliği son sınıf öğrencisi, İstanbul Teknik Üniversitesi</p>
+      <p class="ozet">RF ve anten tasarımı, FPGA ile sayısal tasarım ve kablosuz haberleşme üzerine çalışıyorum. 2027 bahar dönemi için uzun dönem staj arıyorum.</p>
+      <div class="eylemler">
+        <a class="dugme" href="dosyalar/cv/Mustafa_Tumuklu_CV.pdf" download>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5v9m0 0L4.5 7M8 10.5 11.5 7M2.5 13.5h11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          CV'mi indir
+        </a>
+        <a class="dugme ikincil" href="dosyalar/cv/Mustafa_Tumuklu_CV_EN.pdf" download hreflang="en">English CV</a>
+      </div>
+      <ul class="iletisim">
+        <li><a class="eposta" id="eposta" href="mailto:tumuklumustafa059@gmail.com">tumuklumustafa059@gmail.com</a><button type="button" class="kopyala" data-kopyala="tumuklumustafa059@gmail.com" aria-controls="eposta">Kopyala</button></li>
+        <li><a href="https://www.linkedin.com/in/mustafa-t%C3%BCm%C3%BCkl%C3%BC-3998122b0" rel="me noopener" target="_blank">LinkedIn</a></li>
+        <li><a href="https://github.com/tumuklumustafa059-gif" rel="me noopener" target="_blank">GitHub</a></li>
+        <li>Sarıyer, İstanbul</li>
+      </ul>
     </div>
-    <ul class="iletisim">
-      <li><a class="eposta" id="eposta" href="mailto:tumuklumustafa059@gmail.com">tumuklumustafa059@gmail.com</a><button type="button" class="kopyala" data-kopyala="tumuklumustafa059@gmail.com" aria-controls="eposta">Kopyala</button></li>
-      <li><a href="https://www.linkedin.com/in/mustafa-t%C3%BCm%C3%BCkl%C3%BC-3998122b0" rel="me noopener" target="_blank">LinkedIn</a></li>
-      <li><a href="https://github.com/tumuklumustafa059-gif" rel="me noopener" target="_blank">GitHub</a></li>
-      <li>Sarıyer, İstanbul</li>
-    </ul>
 
     <!-- Frekans şeridi: konumlar log10(f / 1 MHz) / 4 ile hesaplandı (eksen 1 MHz – 10 GHz) -->
     <figure class="spektrum">
@@ -349,13 +422,13 @@ ul, ol { margin: 0; padding: 0; }
     <div class="hakkimda">
       <div class="metin">
         <p>İstanbul Teknik Üniversitesi Elektronik ve Haberleşme Mühendisliği bölümünde son sınıftayım ve Mayıs 2027'de mezun olmayı planlıyorum. Çalışmalarım RF ve anten tasarımı, FPGA ile sayısal tasarım ve kablosuz haberleşme sistemleri üzerine yoğunlaşıyor.</p>
-        <p>Bitirme projemde bir takım arkadaşımla birlikte düşük maliyetli bir kısa dalga DRM alıcısı geliştiriyoruz; ben anten ve RF ön uç tarafındayım. Bu dönem ayrıca ns-3 ile 5G NR handover optimizasyonu ve bir mikrodalga link tasarımı üzerinde çalışıyorum.</p>
+        <p>Bitirme projemde bir takım arkadaşımla birlikte düşük maliyetli bir kısa dalga DRM alıcısı geliştiriyoruz; ben RF ön uç ve anten tarafındayım. Bu dönem ayrıca ns-3 ile 5G NR handover optimizasyonu ve bir mikrodalga link tasarımı üzerinde çalışıyorum.</p>
         <p>TÜBİTAK BİLGEM-TÜTEL'de FPGA üzerinde sayısal tasarım stajı yaptım. Enerjisa'nın SPARK Genç Yetenek Programı'nda ise röle koordinasyonunu otomatikleştiren bir yazılım geliştiren ekipte yer aldım.</p>
         <p>Öğrendiklerimi gerçek ürünlerde uygulayabileceğim, deneyimli mühendislerle çalışabileceğim bir uzun dönem staj arıyorum.</p>
       </div>
       <dl class="bilgi">
         <div><dt>Okul</dt><dd>İstanbul Teknik Üniversitesi</dd></div>
-        <div><dt>Bölüm</dt><dd>Elektronik ve Haberleşme Mühendisliği (%100 İngilizce)</dd></div>
+        <div><dt>Bölüm</dt><dd>Elektronik ve Haberleşme Mühendisliği</dd></div>
         <div><dt>Mezuniyet</dt><dd>Mayıs 2027 (beklenen)</dd></div>
         <div><dt>Genel not ortalaması</dt><dd>3.00 / 4.00</dd></div>
         <div><dt>Burs</dt><dd>Sabancı Vakfı bursiyeri</dd></div>
@@ -370,54 +443,60 @@ ul, ol { margin: 0; padding: 0; }
     <h2 id="kariyer-baslik">Kariyer</h2>
     <p>Hedefim RF/mikrodalga, sayısal tasarım veya haberleşme sistemleri alanında uzun dönem staj yapmak.</p>
 
-    <h3 class="alt-baslik">Deneyim</h3>
-    <ol class="zaman">
-      <li>
-        <p class="tarih"><time datetime="2026-09">Eylül 2026</time></p>
-        <div class="zaman-icerik">
-          <h4>Stajyer Mühendis, TÜBİTAK BİLGEM-TÜTEL</h4>
-          <p class="yer">Gebze, Kocaeli</p>
-          <ul class="maddeler">
-            <li>Verilog ile FIFO, toplayıcı, sayaç ve UART modüllerini tasarladım; Vivado ve Quartus'ta sentezleyip DE1-SoC FPGA kartında test ettim.</li>
-            <li>RTL tasarım, sentez ve kart üzerinde doğrulamadan oluşan FPGA tasarım akışını görev isterlerine göre uçtan uca uyguladım.</li>
-          </ul>
-        </div>
-      </li>
-      <li>
-        <p class="tarih"><time datetime="2026-07">Temmuz</time>–<time datetime="2026-08">Ağustos 2026</time></p>
-        <div class="zaman-icerik">
-          <h4>Stajyer, Enerjisa / Toroslar EDAŞ</h4>
-          <p class="yer">SPARK Genç Yetenek Programı, Adana</p>
-          <ul class="maddeler">
-            <li>Elle yapıldığında yoğun iş gücü gerektiren röle koordinasyonunu saniyeler içinde otomatik yapan yazılımı geliştiren proje ekibinde çalıştım.</li>
-            <li>Farklı bölümlerden ekip arkadaşlarıma devre teorisi ve veri yapıları konularında destek verdim; dağıtım sistemleri ve koruma koordinasyonu üzerine saha bilgisi edindim.</li>
-          </ul>
-        </div>
-      </li>
-    </ol>
+    <div class="kariyer-izgara">
+      <div class="kariyer-sutun">
+        <h3>Deneyim</h3>
+        <ol class="zaman">
+          <li>
+            <p class="tarih"><time datetime="2026-09">Eylül 2026</time></p>
+            <div class="zaman-icerik">
+              <h4>Stajyer Mühendis, TÜBİTAK BİLGEM-TÜTEL</h4>
+              <p class="yer">Gebze, Kocaeli</p>
+              <ul class="maddeler">
+                <li>Verilog ile FIFO, toplayıcı, sayaç ve UART modüllerini tasarladım; Vivado ve Quartus'ta sentezleyip DE1-SoC FPGA kartında test ettim.</li>
+                <li>RTL tasarım, sentez ve kart üzerinde doğrulamadan oluşan FPGA tasarım akışını görev isterlerine göre uçtan uca uyguladım.</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <p class="tarih"><time datetime="2026-07">Temmuz</time>–<time datetime="2026-08">Ağustos 2026</time></p>
+            <div class="zaman-icerik">
+              <h4>Stajyer, Enerjisa / Toroslar EDAŞ</h4>
+              <p class="yer">SPARK Genç Yetenek Programı, Adana</p>
+              <ul class="maddeler">
+                <li>Elle yapıldığında yoğun iş gücü gerektiren röle koordinasyonunu saniyeler içinde otomatik yapan yazılımı geliştiren proje ekibinde çalıştım.</li>
+                <li>Farklı bölümlerden ekip arkadaşlarıma devre teorisi ve veri yapıları konularında destek verdim; dağıtım sistemleri ve koruma koordinasyonu üzerine saha bilgisi edindim.</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </div>
 
-    <h3 class="alt-baslik">Eğitim</h3>
-    <ol class="zaman">
-      <li>
-        <p class="tarih">2022–2027</p>
-        <div class="zaman-icerik">
-          <h4>Lisans, Elektronik ve Haberleşme Mühendisliği</h4>
-          <p class="yer">İstanbul Teknik Üniversitesi, %100 İngilizce program</p>
-          <ul class="maddeler">
-            <li>Genel not ortalaması: 3.00 / 4.00</li>
-            <li>Bitirme projesi: ESP32 tabanlı kısa dalga DRM alıcı</li>
-          </ul>
-        </div>
-      </li>
-    </ol>
+      <div class="kariyer-sutun">
+        <h3>Eğitim</h3>
+        <ol class="zaman">
+          <li>
+            <p class="tarih">2022–2027</p>
+            <div class="zaman-icerik">
+              <h4>Lisans, Elektronik ve Haberleşme Mühendisliği</h4>
+              <p class="yer">İstanbul Teknik Üniversitesi</p>
+              <ul class="maddeler">
+                <li>Genel not ortalaması: 3.00 / 4.00</li>
+                <li>Bitirme projesi: ESP32 tabanlı kısa dalga DRM alıcı</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
 
-    <h3 class="alt-baslik">Teknik beceriler</h3>
-    <dl class="beceriler">
-      <div><dt>RF ve anten</dt><dd>CST Studio Suite, LTspice, MATLAB</dd></div>
-      <div><dt>Sayısal tasarım</dt><dd>Verilog, Vivado, Quartus, DE1-SoC FPGA</dd></div>
-      <div><dt>Haberleşme ve simülasyon</dt><dd>ns-3 (5G-LENA), MATLAB</dd></div>
-      <div><dt>Programlama ve gömülü</dt><dd>C++, ESP32</dd></div>
-    </dl>
+        <h3 class="alt-baslik">Teknik beceriler</h3>
+        <dl class="beceriler">
+          <div><dt>RF ve anten</dt><dd>CST Studio Suite, LTspice, MATLAB</dd></div>
+          <div><dt>Sayısal tasarım</dt><dd>Verilog, Vivado, Quartus, DE1-SoC FPGA</dd></div>
+          <div><dt>Haberleşme ve simülasyon</dt><dd>ns-3 (5G-LENA), MATLAB</dd></div>
+          <div><dt>Programlama ve gömülü</dt><dd>C++, ESP32</dd></div>
+        </dl>
+      </div>
+    </div>
   </section>
 
   <!-- ===== PROJELER ===== -->
@@ -425,32 +504,37 @@ ul, ol { margin: 0; padding: 0; }
     <h2 id="projeler-baslik">Projeler</h2>
     <div class="projeler">
 
-      <article class="proje" id="drm-alici">
-        <h3>ESP32 tabanlı kısa dalga DRM alıcı</h3>
-        <p class="proje-ust"><span class="durum">Devam ediyor</span>Bitirme projesi, 2026–2027</p>
-        <div class="metin">
-          <p>Kısa dalga bandındaki Digital Radio Mondiale (DRM) yayınlarını, acil durum yayınları dahil, düşük maliyetle alabilen kompakt bir alıcı geliştiriyoruz. Sinyal CML Micro DRM1000 modülünde çözülüyor; ESP32 sistemi yönetiyor ve çözülen metin mesajlarını ekranda gösteriyor.</p>
-          <p><strong>Benim payım:</strong> anten tarafı. Önce RF ön uç tasarımını LTspice'ta yapıyorum, ardından kısa dalga anten tasarımına geçeceğim.</p>
+      <article class="proje proje-ana" id="drm-alici">
+        <div class="proje-ana-sol">
+          <h3>ESP32 tabanlı kısa dalga DRM alıcı</h3>
+          <p class="proje-ust"><span class="durum">Devam ediyor</span>Bitirme projesi, 2026–2027</p>
+          <div class="metin">
+            <p>Kısa dalga bandındaki Digital Radio Mondiale (DRM) yayınlarını, acil durum yayınları dahil, düşük maliyetle alabilen kompakt bir alıcı geliştiriyoruz. Sinyal CML Micro DRM1000 modülünde çözülüyor; ESP32 sistemi yönetiyor ve çözülen metin mesajlarını ekranda gösteriyor.</p>
+            <p><strong>Benim payım:</strong> RF ön uç ve anten. DRM1000'in HF girişinin önüne 3–27 MHz bandını geçiren bir preselektör filtresi tasarlıyorum (LTspice). Ardından kısa dalga anten tasarımına geçeceğim.</p>
+          </div>
+          <ul class="etiketler" aria-label="Kullanılanlar">
+            <li>ESP32</li><li>CML Micro DRM1000</li><li>LTspice</li><li>Preselektör filtre</li><li>HF / kısa dalga</li>
+          </ul>
         </div>
-        <ol class="adimlar" aria-label="Proje yol haritası">
-          <li>Anten</li>
-          <li class="su-an" aria-current="step">RF ön uç</li>
-          <li>Algoritma simülasyonu</li>
-          <li>Gömülü yazılım</li>
-          <li>PCB</li>
-          <li>Test</li>
-          <li>Maliyet analizi ve rapor</li>
-        </ol>
-        <ul class="etiketler" aria-label="Kullanılanlar">
-          <li>ESP32</li><li>CML Micro DRM1000</li><li>LTspice</li><li>HF / kısa dalga</li>
-        </ul>
+        <div class="proje-ana-sag">
+          <p class="kucuk-baslik" id="yol-haritasi">Yol haritası</p>
+          <ol class="adimlar" aria-labelledby="yol-haritasi">
+            <li>Anten</li>
+            <li class="su-an" aria-current="step">RF ön uç</li>
+            <li>Algoritma simülasyonu</li>
+            <li>Gömülü yazılım</li>
+            <li>PCB</li>
+            <li>Test</li>
+            <li>Maliyet analizi ve rapor</li>
+          </ol>
+        </div>
       </article>
 
       <article class="proje" id="5g-handover">
         <h3>5G NR handover optimizasyonu</h3>
-        <p class="proje-ust"><span class="durum">Devam ediyor</span>EHB 415E Data Communications, grup projesi, 2026</p>
+        <p class="proje-ust"><span class="durum">Devam ediyor</span>EHB 415E Data Communications, grup projesi</p>
         <div class="metin">
-          <p>Yüksek hızlı araç senaryolarında 5G NR'deki hareketlilik kaynaklı handover mekanizmalarını inceliyoruz: A3 olayı, Time-to-Trigger (TTT) ve histerezis parametrelerinin ping-pong handover, handover hatası ve veri hızı üzerindeki etkisi. Hıza duyarlı, uyarlanabilir bir handover mantığı geliştiriyoruz. Sonuçlar IEEE formatında bir makale ve sunumla raporlanacak.</p>
+          <p>Yüksek hızlı araç senaryolarında 5G NR'deki hareketlilik kaynaklı handover mekanizmalarını inceliyoruz: A3 olayı, Time-to-Trigger (TTT) ve histerezis parametrelerinin ping-pong handover, handover hatası ve veri hızı üzerindeki etkisi. Hıza duyarlı, uyarlanabilir bir handover mantığı geliştiriyoruz.</p>
         </div>
         <ul class="etiketler" aria-label="Kullanılanlar">
           <li>ns-3</li><li>5G-LENA</li><li>5G NR</li><li>C++</li>
@@ -459,7 +543,7 @@ ul, ol { margin: 0; padding: 0; }
 
       <article class="proje" id="rf-link">
         <h3>Mikrodalga RF link tasarımı</h3>
-        <p class="proje-ust"><span class="durum">Devam ediyor</span>RF/Mikrodalga Haberleşmesi dersi, 2026</p>
+        <p class="proje-ust"><span class="durum">Devam ediyor</span>EHB 473 Mikrodalga ve RF Haberleşmesi</p>
         <div class="metin">
           <p>Görüş hattı (LOS) bir mikrodalga link için link bütçesi analizi ve sistem tasarımı: serbest uzay yol kaybı, Fresnel bölgesi açıklığı ve sönümleme payı hesapları.</p>
         </div>
@@ -482,60 +566,90 @@ ul, ol { margin: 0; padding: 0; }
     </div>
   </section>
 
-  <!-- ===== DERSLER ===== -->
+  <!-- ===== DERSLER =====
+       Transkripte göre. RF/mikrodalga/elektromanyetik dersleri class="rf" ile işaretli. -->
   <section class="bolum" id="dersler" aria-labelledby="dersler-baslik">
     <h2 id="dersler-baslik">Dersler</h2>
-    <p>Program tamamen İngilizce olduğu için ders adlarını resmi İngilizce adlarıyla yazdım.</p>
+    <p><span class="rf-ornek" aria-hidden="true"></span>Bakır çizgili dersler RF, mikrodalga ve elektromanyetik alanında.</p>
 
-    <h3 class="alt-baslik">Bu dönem, Güz 2026</h3>
-    <ul class="ders-listesi">
-      <li><span class="kod">EHB 4901E</span><span>Electronics and Communication Engineering Design I</span><span class="ders-not">Bitirme projesi: kısa dalga DRM alıcı</span></li>
+    <h3>Bu dönem, Güz 2026</h3>
+    <ul class="ders-listesi su-an-dersler">
       <li><span class="kod">EHB 415E</span><span>Data Communications</span><span class="ders-not">Dönem projesi: ns-3 ile 5G NR handover optimizasyonu</span></li>
-      <li><span class="kod">EHB 433E</span><span>Digital Filters and Systems</span><span class="ders-not">Haftalık ders raporları; MATLAB ile Gibbs olayı ve FIR filtre tasarımı</span></li>
-      <li><span class="kod">–</span><span>RF/Microwave Communication</span><span class="ders-not">Görüş hattı mikrodalga link tasarımı</span></li>
-      <li><span class="kod">–</span><span>Active Microwave Circuits</span><span class="ders-not">Mikrodalga yükselteç tasarım projesi</span></li>
+      <li class="rf"><span class="kod">EHB 451E</span><span>Active Microwave Circuits</span><span class="ders-not">Mikrodalga yükselteç tasarım projesi</span></li>
+      <li class="rf"><span class="kod">EHB 473</span><span>Mikrodalga ve RF Haberleşmesi</span><span class="ders-not">Görüş hattı mikrodalga link tasarımı</span></li>
+      <li><span class="kod">EHB 433E</span><span>Digital Filters and Systems</span><span class="ders-not">MATLAB ile Gibbs olayı ve FIR filtre tasarımı</span></li>
+      <li><span class="kod">EHB 311E</span><span>Introduction to Electronics Laboratory</span></li>
+      <li><span class="kod">ATA 121</span><span>Atatürk İlkeleri ve İnkılap Tarihi I</span></li>
     </ul>
 
-    <h3 class="alt-baslik">Tamamladığım temel dersler</h3>
-    <div class="ders-gruplari">
-      <section aria-labelledby="dg1">
-        <h4 id="dg1">Devreler ve elektronik</h4>
+    <h3 class="alt-baslik">Tamamladığım dersler</h3>
+    <div class="donemler">
+      <section class="donem" aria-labelledby="y6">
+        <h4 id="y6">6. yarıyıl</h4>
         <ul class="ders-listesi">
-          <li><span class="kod">EEF 211E</span><span>Basics of Electrical Circuits</span></li>
-          <li><span class="kod">EEF 221E</span><span>Basics of Electrical Circuits Laboratory</span></li>
-          <li><span class="kod">EEF 232E</span><span>Circuit and System Analysis</span></li>
-          <li><span class="kod">EEF 262E</span><span>Fundamentals of Electronics</span></li>
-          <li><span class="kod">EHB 311E</span><span>Introduction to Electronics Laboratory</span></li>
+          <li class="rf"><span class="kod">EHB 456E</span><span>Antennas</span></li>
+          <li class="rf"><span class="kod">EHB 362</span><span>Mikrodalga Mühendisliği</span></li>
+          <li><span class="kod">EHB 308</span><span>Haberleşme II</span></li>
+          <li><span class="kod">HUK 213</span><span>İş Sağlığı ve Güvenliği Hukuku</span></li>
         </ul>
       </section>
-      <section aria-labelledby="dg2">
-        <h4 id="dg2">Sinyaller, haberleşme ve elektromanyetik</h4>
+      <section class="donem" aria-labelledby="y5">
+        <h4 id="y5">5. yarıyıl</h4>
         <ul class="ders-listesi">
-          <li><span class="kod">EEF 206E</span><span>Signal Processing and Linear Systems</span></li>
-          <li><span class="kod">EHB 307E</span><span>Communication I</span></li>
-          <li><span class="kod">EEF 212E</span><span>Electromagnetic Theory I</span></li>
-          <li><span class="kod">EEF 271E</span><span>Probability and Statistics</span></li>
-        </ul>
-      </section>
-      <section aria-labelledby="dg3">
-        <h4 id="dg3">Sayısal tasarım, programlama ve kontrol</h4>
-        <ul class="ders-listesi">
-          <li><span class="kod">EEF 205E</span><span>Introduction to Logic Design</span></li>
+          <li><span class="kod">EHB 307</span><span>Haberleşme I</span></li>
+          <li><span class="kod">EHB 315</span><span>Sayısal İşaret İşleme</span></li>
+          <li class="rf"><span class="kod">EHB 337</span><span>Elektromanyetik Teori II</span></li>
           <li><span class="kod">EHB 324E</span><span>Logic Design Laboratory</span></li>
-          <li><span class="kod">EEF 110E</span><span>Introduction to Programming Languages (C)</span></li>
-          <li><span class="kod">EEF 311E</span><span>Numerical Analysis with Python</span></li>
           <li><span class="kod">KON 313E</span><span>Feedback Control Systems</span></li>
+          <li><span class="kod">EEF 311E</span><span>Numerical Analysis with Python</span></li>
         </ul>
       </section>
-      <section aria-labelledby="dg4">
-        <h4 id="dg4">Matematik ve fizik</h4>
+      <section class="donem" aria-labelledby="y4">
+        <h4 id="y4">4. yarıyıl</h4>
         <ul class="ders-listesi">
-          <li><span class="kod">MAT 103E</span><span>Mathematics I</span></li>
-          <li><span class="kod">MAT 104E</span><span>Mathematics II</span></li>
+          <li><span class="kod">EEF 232</span><span>Devre ve Sistem Analizi</span></li>
+          <li class="rf"><span class="kod">EEF 212</span><span>Elektromanyetik Teori I</span></li>
+          <li><span class="kod">EEF 206</span><span>İşaret İşleme ve Lineer Sistemler</span></li>
+          <li><span class="kod">EEF 262</span><span>Elektroniğin Temelleri</span></li>
+          <li><span class="kod">EEF 221E</span><span>Basics of Electrical Circuits Laboratory</span></li>
+          <li><span class="kod">EHB 208</span><span>Veri Yapıları ve Programlama</span></li>
+        </ul>
+      </section>
+      <section class="donem" aria-labelledby="y3">
+        <h4 id="y3">3. yarıyıl</h4>
+        <ul class="ders-listesi">
+          <li><span class="kod">EEF 211</span><span>Elektrik Devre Temelleri</span></li>
+          <li><span class="kod">EEF 205</span><span>Lojik Tasarıma Giriş</span></li>
+          <li><span class="kod">EEF 210</span><span>Diferansiyel Denklemler</span></li>
+          <li><span class="kod">EEF 271</span><span>Olasılık ve İstatistik</span></li>
+          <li><span class="kod">MAL 201</span><span>Malzeme Bilimi</span></li>
+          <li><span class="kod">TER 201</span><span>Termodinamik</span></li>
+          <li><span class="kod">ING 201A</span><span>Essentials of Research Paper Writing</span></li>
+        </ul>
+      </section>
+      <section class="donem" aria-labelledby="y2">
+        <h4 id="y2">2. yarıyıl</h4>
+        <ul class="ders-listesi">
+          <li><span class="kod">EEF 110E</span><span>Introduction to Programming Languages (C)</span></li>
           <li><span class="kod">EEF 281E</span><span>Linear Algebra and Applications</span></li>
-          <li><span class="kod">EEF 210E</span><span>Differential Equations</span></li>
-          <li><span class="kod">FIZ 101E</span><span>Physics I</span></li>
-          <li><span class="kod">FIZ 102E</span><span>Physics II</span></li>
+          <li><span class="kod">MAT 104E</span><span>Mathematics II</span></li>
+          <li><span class="kod">FIZ 102</span><span>Fizik II (Elektrik Fiziği)</span></li>
+          <li><span class="kod">FIZ 102EL</span><span>Physics II Laboratory</span></li>
+          <li><span class="kod">ING 112A</span><span>Basics of Academic Writing</span></li>
+          <li><span class="kod">TUR 122</span><span>Türk Dili II</span></li>
+          <li><span class="kod">DAN 102</span><span>Girişimcilik ve Kariyer Danışmanlığı</span></li>
+        </ul>
+      </section>
+      <section class="donem" aria-labelledby="y1">
+        <h4 id="y1">1. yarıyıl</h4>
+        <ul class="ders-listesi">
+          <li><span class="kod">EHB 101</span><span>Elektronik ve Haberleşme Mühendisliğine Giriş ve Mühendislik Etiği</span></li>
+          <li><span class="kod">MAT 103E</span><span>Mathematics I</span></li>
+          <li><span class="kod">FIZ 101</span><span>Fizik I</span></li>
+          <li><span class="kod">FIZ 101EL</span><span>Physics I Laboratory</span></li>
+          <li><span class="kod">KIM 101</span><span>Genel Kimya I</span></li>
+          <li><span class="kod">ING 100</span><span>EAP Through Global Goals</span></li>
+          <li><span class="kod">TUR 121</span><span>Türk Dili I</span></li>
         </ul>
       </section>
     </div>
