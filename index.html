@@ -283,8 +283,8 @@ ul, ol { margin: 0; padding: 0; }
 .proje-ana-sol, .proje-ana-sag { display: grid; gap: .8rem; align-content: start; min-width: 0; }
 .kucuk-baslik { font-size: .875rem; color: var(--soluk); }
 @media (min-width: 60rem) {
-  .projeler { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 3rem; }
-  .proje { padding-block: 2rem 0; }
+  .projeler { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 3rem; }
+  .proje { padding-block: 2rem; }
   .proje-ana { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) 20rem; column-gap: 4.5rem; padding-bottom: 2rem; }
   .proje-ana .adimlar { flex-direction: column; }
   .proje-ana h3 { font-size: 1.5rem; }
@@ -422,7 +422,7 @@ ul, ol { margin: 0; padding: 0; }
     <div class="hakkimda">
       <div class="metin">
         <p>İstanbul Teknik Üniversitesi Elektronik ve Haberleşme Mühendisliği bölümünde son sınıftayım ve Mayıs 2027'de mezun olmayı planlıyorum. Çalışmalarım RF ve anten tasarımı, FPGA ile sayısal tasarım ve kablosuz haberleşme sistemleri üzerine yoğunlaşıyor.</p>
-        <p>Bitirme projemde bir takım arkadaşımla birlikte düşük maliyetli bir kısa dalga DRM alıcısı geliştiriyoruz; ben RF ön uç ve anten tarafındayım. Bu dönem ayrıca ns-3 ile 5G NR handover optimizasyonu ve bir mikrodalga link tasarımı üzerinde çalışıyorum.</p>
+        <p>Bitirme projemde bir takım arkadaşımla birlikte düşük maliyetli bir kısa dalga DRM alıcısı geliştiriyoruz; ben RF ön uç ve anten tarafındayım. Bu dönem ayrıca ns-3 ile 5G NR handover optimizasyonu, bir mikrodalga link tasarımı ve 3,5 GHz'de bir düşük gürültülü yükselteç (LNA) tasarımı üzerinde çalışıyorum.</p>
         <p>TÜBİTAK BİLGEM-TÜTEL'de FPGA üzerinde sayısal tasarım stajı yaptım. Enerjisa'nın SPARK Genç Yetenek Programı'nda ise röle koordinasyonunu otomatikleştiren bir yazılım geliştiren ekipte yer aldım.</p>
         <p>Öğrendiklerimi gerçek ürünlerde uygulayabileceğim, deneyimli mühendislerle çalışabileceğim bir uzun dönem staj arıyorum.</p>
       </div>
@@ -528,6 +528,18 @@ ul, ol { margin: 0; padding: 0; }
             <li>Maliyet analizi ve rapor</li>
           </ol>
         </div>
+      </article>
+
+      <article class="proje" id="lna-3-5ghz">
+        <h3>3,5 GHz düşük gürültülü yükselteç (LNA)</h3>
+        <p class="proje-ust"><span class="durum">Devam ediyor</span>EHB 451E Active Microwave Circuits</p>
+        <div class="metin">
+          <p>3,3–3,8 GHz bandı için ATF-54143 transistörlü, tek katlı, mikroşerit eşleştirmeli bir LNA tasarımı. Transistör 3,5 GHz'de koşullu kararlı olduğu için devreye kararlılık ağı eklendi; eşleştirme hatları MATLAB'da optimize edildi.</p>
+          <p><strong>Simülasyon sonuçları:</strong> bant içinde 0,75–0,88 dB gürültü sayısı, 13,6–14,5 dB kazanç, S11 ≤ −11 dB, S22 ≤ −12 dB ve 0,1–18 GHz arasında koşulsuz kararlılık. Devre üretilmedi, sonuçlar simülasyona dayanıyor.</p>
+        </div>
+        <ul class="etiketler" aria-label="Kullanılanlar">
+          <li>MATLAB</li><li>S-parametreleri</li><li>Smith abağı</li><li>Mikroşerit</li><li>RO4350B</li>
+        </ul>
       </article>
 
       <article class="proje" id="5g-handover">
