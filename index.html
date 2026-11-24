@@ -90,13 +90,13 @@
   font-family: "Archivo";
   src: url("fontlar/archivo-latin.woff2") format("woff2");
   font-weight: 500 700; font-stretch: 100% 115%; font-display: swap;
-  unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B7, U+00C2, U+00C7, U+00CE, U+00D6, U+00D7, U+00DB, U+00DC, U+00E2, U+00E7, U+00EE, U+00F6, U+00FB, U+00FC, U+2013-2014, U+2018-2019, U+201C-201D, U+2022, U+2026;
+  unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B7, U+00C2, U+00C7, U+00CE, U+00D6, U+00D7, U+00DB, U+00DC, U+00E2, U+00E7, U+00EE, U+00F6, U+00FB, U+00FC, U+0131, U+2013-2014, U+2018-2019, U+201C-201D, U+2022, U+2026;
 }
 @font-face {
   font-family: "Archivo";
   src: url("fontlar/archivo-tr.woff2") format("woff2");
   font-weight: 500 700; font-stretch: 100% 115%; font-display: swap;
-  unicode-range: U+011E-011F, U+0130-0131, U+015E-015F;
+  unicode-range: U+011E-011F, U+0130, U+015E-015F;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -378,7 +378,7 @@ ul, ol { margin: 0; padding: 0; }
     <img class="foto" src="foto-600.webp" srcset="foto-300.webp 300w, foto-600.webp 600w" sizes="(min-width: 60rem) 17rem, 7.5rem" width="600" height="750" alt="Mustafa Tümüklü'nün fotoğrafı" fetchpriority="high" decoding="async">
     <div class="giris-govde">
       <p class="unvan">Elektronik ve Haberleşme Mühendisliği son sınıf öğrencisi, İstanbul Teknik Üniversitesi</p>
-      <p class="ozet">RF ve anten tasarımı, FPGA ile sayısal tasarım ve kablosuz haberleşme üzerine çalışıyorum. 2027 bahar dönemi için uzun dönem staj arıyorum.</p>
+      <p class="ozet">RF/mikrodalga devre ve anten tasarımı, FPGA ile sayısal tasarım ve kablosuz haberleşme üzerine çalışıyorum. 2027 bahar dönemi için uzun dönem staja, Mayıs 2027'deki mezuniyetimin ardından da tam zamanlı pozisyonlara açığım.</p>
       <div class="eylemler">
         <a class="dugme" href="dosyalar/cv/Mustafa_Tumuklu_CV.pdf" download>
           <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5v9m0 0L4.5 7M8 10.5 11.5 7M2.5 13.5h11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -398,8 +398,8 @@ ul, ol { margin: 0; padding: 0; }
     <figure class="spektrum">
       <figcaption>Projelerimin çalıştığı frekans aralıkları</figcaption>
       <div class="spk">
-        <div class="bant" style="--bas: 11.93%; --gen: 25%;">
-          <p class="bant-etiket"><b>DRM alıcı</b><span>3–30 MHz, kısa dalga</span></p>
+        <div class="bant" style="--bas: 11.93%; --gen: 23.86%;">
+          <p class="bant-etiket"><b>DRM alıcı</b><span>3–27 MHz, kısa dalga</span></p>
         </div>
         <div class="bant" style="--bas: 67.47%; --gen: 21.13%;">
           <p class="bant-etiket"><b>Vivaldi anten</b><span>0,5–3,5 GHz</span></p>
@@ -422,9 +422,9 @@ ul, ol { margin: 0; padding: 0; }
     <div class="hakkimda">
       <div class="metin">
         <p>İstanbul Teknik Üniversitesi Elektronik ve Haberleşme Mühendisliği bölümünde son sınıftayım ve Mayıs 2027'de mezun olmayı planlıyorum. Çalışmalarım RF ve anten tasarımı, FPGA ile sayısal tasarım ve kablosuz haberleşme sistemleri üzerine yoğunlaşıyor.</p>
-        <p>Bitirme projemde bir takım arkadaşımla birlikte düşük maliyetli bir kısa dalga DRM alıcısı geliştiriyoruz; ben RF ön uç ve anten tarafındayım. Bu dönem ayrıca ns-3 ile 5G NR handover optimizasyonu, bir mikrodalga link tasarımı ve 3,5 GHz'de bir düşük gürültülü yükselteç (LNA) tasarımı üzerinde çalışıyorum.</p>
+        <p>Bitirme projemde bir takım arkadaşımla birlikte CML Micro DRM1000 tabanlı, düşük maliyetli bir kısa dalga DRM alıcısı geliştiriyoruz; ben sistem tasarımı ve donanım tarafında çalışıyorum. Bu dönem ayrıca ns-3 ile 5G NR handover optimizasyonu, bir mikrodalga link tasarımı ve 3,5 GHz'de bir düşük gürültülü yükselteç (LNA) tasarımı üzerinde çalışıyorum.</p>
         <p>TÜBİTAK BİLGEM-TÜTEL'de FPGA üzerinde sayısal tasarım stajı yaptım. Enerjisa'nın SPARK Genç Yetenek Programı'nda ise röle koordinasyonunu otomatikleştiren bir yazılım geliştiren ekipte yer aldım.</p>
-        <p>Öğrendiklerimi gerçek ürünlerde uygulayabileceğim, deneyimli mühendislerle çalışabileceğim bir uzun dönem staj arıyorum.</p>
+        <p>Öğrendiklerimi gerçek ürünlerde uygulayabileceğim, deneyimli mühendislerle çalışabileceğim bir uzun dönem staj; mezuniyetimin ardından da RF/mikrodalga ve sinyal işleme alanında tam zamanlı bir pozisyon arıyorum.</p>
       </div>
       <dl class="bilgi">
         <div><dt>Okul</dt><dd>İstanbul Teknik Üniversitesi</dd></div>
@@ -441,7 +441,7 @@ ul, ol { margin: 0; padding: 0; }
   <!-- ===== KARİYER ===== -->
   <section class="bolum" id="kariyer" aria-labelledby="kariyer-baslik">
     <h2 id="kariyer-baslik">Kariyer</h2>
-    <p>Hedefim RF/mikrodalga, sayısal tasarım veya haberleşme sistemleri alanında uzun dönem staj yapmak.</p>
+    <p>Hedefim RF/mikrodalga, sayısal tasarım veya haberleşme sistemleri alanında önce uzun dönem staj yapmak, mezuniyetimin ardından da bu alanlarda tam zamanlı mühendis olarak çalışmak.</p>
 
     <div class="kariyer-izgara">
       <div class="kariyer-sutun">
@@ -482,7 +482,7 @@ ul, ol { margin: 0; padding: 0; }
               <p class="yer">İstanbul Teknik Üniversitesi</p>
               <ul class="maddeler">
                 <li>Genel not ortalaması: 3.00 / 4.00</li>
-                <li>Bitirme projesi: ESP32 tabanlı kısa dalga DRM alıcı</li>
+                <li>Bitirme projesi: DRM1000 tabanlı kısa dalga DRM alıcı</li>
               </ul>
             </div>
           </li>
@@ -490,10 +490,10 @@ ul, ol { margin: 0; padding: 0; }
 
         <h3 class="alt-baslik">Teknik beceriler</h3>
         <dl class="beceriler">
-          <div><dt>RF ve anten</dt><dd>CST Studio Suite, LTspice, MATLAB</dd></div>
+          <div><dt>RF ve anten</dt><dd>CST Studio Suite, LTspice, MATLAB; LNA tasarımı, mikroşerit empedans uydurma</dd></div>
           <div><dt>Sayısal tasarım</dt><dd>Verilog, Vivado, Quartus, DE1-SoC FPGA</dd></div>
           <div><dt>Haberleşme ve simülasyon</dt><dd>ns-3 (5G-LENA), MATLAB</dd></div>
-          <div><dt>Programlama ve gömülü</dt><dd>C++, ESP32</dd></div>
+          <div><dt>Programlama</dt><dd>C++, Python</dd></div>
         </dl>
       </div>
     </div>
@@ -506,14 +506,14 @@ ul, ol { margin: 0; padding: 0; }
 
       <article class="proje proje-ana" id="drm-alici">
         <div class="proje-ana-sol">
-          <h3>ESP32 tabanlı kısa dalga DRM alıcı</h3>
+          <h3>Kısa dalga DRM alıcı</h3>
           <p class="proje-ust"><span class="durum">Devam ediyor</span>Bitirme projesi, 2026–2027</p>
           <div class="metin">
-            <p>Kısa dalga bandındaki Digital Radio Mondiale (DRM) yayınlarını, acil durum yayınları dahil, düşük maliyetle alabilen kompakt bir alıcı geliştiriyoruz. Sinyal CML Micro DRM1000 modülünde çözülüyor; ESP32 sistemi yönetiyor ve çözülen metin mesajlarını ekranda gösteriyor.</p>
-            <p><strong>Benim payım:</strong> RF ön uç ve anten. DRM1000'in HF girişinin önüne 3–27 MHz bandını geçiren bir preselektör filtresi tasarlıyorum (LTspice). Ardından kısa dalga anten tasarımına geçeceğim.</p>
+            <p>Kısa dalga bandındaki Digital Radio Mondiale (DRM) yayınlarını, acil durum yayınları dahil, düşük maliyetle alabilen kompakt bir alıcı geliştiriyoruz. Alıcının çekirdeği CML Micro DRM1000 modülü: sinyal bu modülde çözülüyor, çözülen metin mesajları OLED ekranda gösteriliyor.</p>
+            <p><strong>Benim payım:</strong> Sistem tasarımı ve donanım. DRM1000'in HF girişinin önüne 3–27 MHz bandını geçiren preselektör filtresini LTspice'ta tasarladım.</p>
           </div>
           <ul class="etiketler" aria-label="Kullanılanlar">
-            <li>ESP32</li><li>CML Micro DRM1000</li><li>LTspice</li><li>Preselektör filtre</li><li>HF / kısa dalga</li>
+            <li>CML Micro DRM1000</li><li>LTspice</li><li>Preselektör filtre</li><li>HF / kısa dalga</li><li>OLED ekran</li>
           </ul>
         </div>
         <div class="proje-ana-sag">
@@ -672,7 +672,7 @@ ul, ol { margin: 0; padding: 0; }
        Ayrıntı için README.md dosyasına bak. -->
   <section class="bolum" id="dosyalar" aria-labelledby="dosyalar-baslik">
     <h2 id="dosyalar-baslik">Dosyalar</h2>
-    <p>CV'm, proje raporlarım, sunumlarım ve sertifikalarım. Dosya adına tıklayınca tarayıcıda açılır.</p>
+    <p>CV'm ve diğer dosyalarım. Dosya adına tıklayınca tarayıcıda açılır.</p>
     <!-- DOSYALAR -->
   </section>
 
